@@ -1,0 +1,32 @@
+{% load static %}
+<nav class="navigation">
+            <div class="navigation-brand navigation-item">
+                <img src="{% static 'logo.png' %}" alt="My brand" class="navigation-brand_image">
+                <div class="navigation-burger">
+                    <button id="menu-bar"><i class="fa-solid fa-bars"></i></button>
+                </div>
+            </div>
+            
+            <div class="navigation-menu navigation-item">
+                <ul class="navigation-menu_items">
+                    <li  class="navigation-menu_item"><span class="menu-item_icon"><i class="fa fa-home" aria-hidden="true"></i></span><a href="#" class="menu-item_title">home</a></li>
+                    <li  class="navigation-menu_item"><span class="menu-item_icon"><i class="fa-solid fa-address-card"></i></span><a href="#about" class="menu-item_title">about</a></li>
+                    <li  class="navigation-menu_item"><span class="menu-item_icon"><i class="fa-solid fa-briefcase"></i></span><a href="#work" class="menu-item_title">work</a></li>
+                    <li  class="navigation-menu_item"><span class="menu-item_icon"><i class="fa-solid fa-handshake"></i></span><a href="#partner" class="menu-item_title">partner</a></li>
+                    <li  class="navigation-menu_item"><span class="menu-item_icon"><i class="fa-solid fa-address-book"></i></span><a href="#" class="menu-item_title">contact</a></li>
+                </ul>
+            </div>
+            <div class="navigation-item navigation-item1">
+                <div class="navigation-search">
+                    <input type="text" class="navigation-search_input" placeholder="searching">
+                    <span class="navigation-search_icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                </div>
+                <div class="navigation-login">
+                {% if request.user.is_authenticated %}
+                    <a href="{% url 'logout' %}"><button id="navigation-login" class="btn btn-primary">Log out</button></a>
+                {% else %}
+                    <button id="navigation-login" class="btn btn-primary">Log in</button>
+                {% endif %}
+                </div>
+            </div>
+        </nav>

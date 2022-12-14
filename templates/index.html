@@ -1,0 +1,167 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <!-- loader -->
+    <!-- {% include "companents/loader1.html" %} -->
+    <header>
+        <!-- navbar -->
+        {% include "companents/navigation.html" %}
+    </header>
+    <section>     
+        {% block base %}
+         <!-- carusel  -->
+         {% if carusels %}
+        <div class="carusel">
+            <div class="carusel-items">
+                <!-- carusel item from database -->
+                {% for carusel in carusels %}
+                    <div class="carusel-item" style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url({{carusel.picture.url}});">
+                        <div class="container spacer">
+                            <h1 class="title">{{carusel.title}}</h1>
+                            <p class="definition">{{carusel.definition}}</p>
+                            <a href="#" class="learn_more">Learn more</a>
+                        </div>
+                    </div> 
+                {% endfor %}
+            </div>
+            <!-- carusel controller by javascript -->
+            <div class="carusel-controller">
+            </div>
+            <div id="prew" class="carusel-control">Prew</div>
+            <div id="next" class="carusel-control">Next</div>   
+        </div>
+        {% endif %}
+        <!-- about section -->
+        <div class="about" id="about">
+            <div class="container">
+                <h1 class="about-title">about me</h1>
+                <p class="about-definition">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum saepe dolorum illum eos id modi molestias consectetur, rem nostrum consequatur, accusantium temporibus debitis. Explicabo sunt quos beatae! Laboriosam saepe earum cumque neque voluptatum. Amet, explicabo itaque rem modi eveniet, doloribus sapiente quod aut dolore veniam optio, accusamus fugit laboriosam aliquam?</p>
+                <div class="about-buttons">
+                    <button class="btn btn-primary">Primary</button><button class="btn btn-secondary">Secondary</button>
+                </div>
+            </div>
+        </div>
+        <!-- Informarion -->
+        {% if professions %}
+        {% for profession in professions %}
+            <div class="container_info" id="profession">
+                <div class="information-item information_image">
+                        <div class="card">
+                        <div class="lines">
+                        </div>
+                        <div class="imagebox">
+                            <img src="{{profession.picture.url}}" alt="user profession">
+                        </div>
+                        <div class="contain">
+                            <div class="detail">
+                                <h1 class="title">{{profession.title}}</h1>
+                                <div class="data">
+                                    <h3>Exprience <span>{{profession.exprience}}</span></h3>
+                                    <h3>Works <span>{{profession.amount_work}}</span></h3>
+                                    <h3>Degree <span>{{profession.degree}}%</span></h3>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                </div>
+                <div class="information-item information_text">
+                    <h1 class="text_title">{{profession.text_title}}</h1>
+                    <ul class="subprofessions">
+                        {% for subprof in profession.SubProfessions %}
+                            <li class="subprofession"> - {{subprof.definition}}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div> 
+        {% endfor %}
+        {% endif %}
+        <!-- works -->
+        {% if works %}
+        <div class="work-section" id="work">
+            <h1>My Works</h1>
+            <div class="work_section">
+                <div class="work-control work-prew"><</div>
+                <div class="container">
+                    <div class="work_items">
+                        {% for work in works %}
+                            <div class="work_item">
+                                <div class="card">
+                                    <div class="cover">
+                                        <h2>{{work.title}}</h2>
+                                        <img src="{{work.picture1.url}}" alt="work brend">
+                                    </div>
+                                    <div class="detail">
+                                        <div>
+                                            <h2>{{work.title}}</h2>
+                                            <div class="card_image">
+                                                <img src="{{work.picture2.url}}" alt="work full">
+                                            </div>
+                                            <h3>{{work.technology}}</h3>
+                                            {% if work.active %}
+                                            <a href="{{work.link}}" target="_blank"><button class="btn btn-primary">See work</button></a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="work-control work-next">></div>
+            </div>
+        </div>
+        {% endif %}
+        <!-- partners -->
+        {% if partners %}
+            <div class="partner" id="partner">
+                <h1>My Partners </h1>
+                <div class="container">
+                    <div class="partner-items">
+                        {% for partner in partners %}
+                            <div class="partner-item">
+                                <div class="card">
+                                    <h1>{{partner.title}}</h1>
+                                    <h3>{{partner.definition}}</h3>
+                                    <a href="{{partner.link}}" target="_blank"><button class="btn btn-primary">See</button></a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        {% if contacts %}
+            <div class="contacts">
+                <div class="container">
+                    {% for contact in contacts %}
+                        <div class="contact-item">
+                            <a href="{{contact.link}}">
+                                <div class="icon">
+                                    <img src="{{contact.icon.url}}" alt="icon">
+                                </div>
+                                <h3 class="title">{{contact.title}}</h3>
+                            </a> 
+                        </div> 
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+        {% endblock %}
+    </section>
+    <hr>
+    <footer>
+        {% include 'companents/footer.html' %}
+    </footer>
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
